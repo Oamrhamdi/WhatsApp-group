@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مبرمجون تحت التدريب - من الصفر إلى الاحتراف</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        :root {
+            --primary: #1a2a6c;
+            --secondary: #b21f1f;
+            --accent: #fdbb2d;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --dark-blue: #0a1930;
+            --darker-blue: #07121f;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--darker-blue), var(--dark-blue));
+            color: var(--light);
+            line-height: 1.7;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(29, 78, 216, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(219, 39, 119, 0.15) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .container {
+            width: 100%;
+            margin: 0 auto;
+            background: rgba(13, 23, 42, 0.9);
+            overflow: hidden;
+        }
+        
+        header {
+            text-align: center;
+            padding: 25px 15px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-bottom: 4px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+            font-weight: 800;
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            font-weight: 600;
+        }
+        
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 0 5px;
+            position: relative;
+            z-index: 1;
+            justify-content: center;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            font-size: 0.85rem;
+            flex: 1;
+            min-width: 120px;
+            justify-content: center;
+        }
+        
+        .nav-btn:hover, .nav-btn.active {
+            background: linear-gradient(135deg, var(--accent), #e9a800);
+            color: var(--dark-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .main-content {
+            padding: 20px 15px;
+            min-height: 500px;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+            padding: 20px 15px;
+            background: linear-gradient(135deg, rgba(26, 42, 108, 0.3), rgba(13, 23, 42, 0.5));
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        h2 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            border-bottom: 2px solid rgba(253, 187, 45, 0.3);
+            padding-bottom: 8px;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding: 0 10px;
+        }
+        
+        li {
+            margin-bottom: 12px;
+            padding: 12px;
+            background: linear-gradient(135deg, rgba(26, 42, 108, 0.2), rgba(13, 23, 42, 0.3));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-right: 2px solid var(--accent);
+            font-size: 0.95rem;
+        }
+        
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            margin: 25px 0;
+            width: 100%;
+            opacity: 0.7;
+        }
+        
+        .join-section {
+            text-align: center;
+            padding: 25px 15px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            border-radius: 12px;
+            margin: 25px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .join-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), #e9a800);
+            color: var(--dark-blue);
+            padding: 14px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: none;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .join-button:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .whatsapp-icon {
+            margin-right: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            background: rgba(7, 18, 31, 0.9);
+            border-top: 2px solid var(--accent);
+        }
+        
+        .hashtag {
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 15px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .journey-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .journey-item {
+            padding: 18px 15px;
+            background: linear-gradient(135deg, rgba(26, 42, 108, 0.2), rgba(13, 23, 42, 0.3));
+            border-radius: 10px;
+            border: 2px solid var(--accent);
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 120px;
+        }
+        
+        .journey-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, rgba(26, 42, 108, 0.3), rgba(13, 23, 42, 0.4));
+        }
+        
+        .journey-emoji {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .journey-item p {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        .links-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .link-card {
+            padding: 20px 15px;
+            background: linear-gradient(135deg, rgba(26, 42, 108, 0.2), rgba(13, 23, 42, 0.3));
+            border-radius: 12px;
+            border: 2px solid var(--accent);
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, rgba(26, 42, 108, 0.3), rgba(13, 23, 42, 0.4));
+        }
+        
+        .link-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .link-card p {
+            margin-bottom: 15px;
+            flex-grow: 1;
+            font-size: 0.95rem;
+        }
+        
+        .link-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), #e9a800);
+            color: var(--dark-blue);
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            font-size: 0.9rem;
+        }
+        
+        .link-button:hover {
+            background: linear-gradient(135deg, #e9a800, var(--accent));
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .footer-text {
+            font-size: 1rem;
+            margin: 12px 0;
+            font-weight: 600;
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* تحسينات للشاشات المتوسطة والكبيرة */
+        @media (min-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+            }
+            
+            .nav-btn {
+                font-size: 0.9rem;
+                padding: 10px 18px;
+            }
+            
+            .journey-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px;
+                margin: 20px auto;
+                border-radius: 15px;
+            }
+            
+            header {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .main-content {
+                padding: 30px 20px;
+            }
+            
+            .section {
+                padding: 25px 20px;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+            }
+            
+            .journey-container {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
+            }
+            
+            .links-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .nav-btn {
+                flex: none;
+                min-width: auto;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .container {
+                max-width: 960px;
+            }
+            
+            .links-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* تحسينات للوضع الأفقي في الموبايل */
+        @media (max-height: 500px) and (orientation: landscape) {
+            header {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+                margin-bottom: 8px;
+            }
+            
+            .tagline {
+                font-size: 0.9rem;
+                margin-bottom: 12px;
+            }
+            
+            nav {
+                margin-top: 12px;
+            }
+            
+            .nav-btn {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* منع تكبير النص في iOS */
+        @supports (-webkit-touch-callout: none) {
+            input, textarea {
+                font-size: 16px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="floating">🚀 مبرمجون تحت التدريب 🚀</h1>
+            <p class="tagline">من الصفر إلى الاحتراف - رحلة تعليمية شاملة</p>
+            
+            <nav>
+                <a href="#" class="nav-btn active" data-page="why-us">
+                    <i class="fas fa-bullseye"></i> لماذا نحن
+                </a>
+                <a href="#" class="nav-btn" data-page="terms">
+                    <i class="fas fa-clipboard-list"></i> الشروط
+                </a>
+                <a href="#" class="nav-btn" data-page="journey">
+                    <i class="fas fa-graduation-cap"></i> الرحلة
+                </a>
+                <a href="#" class="nav-btn" data-page="links">
+                    <i class="fas fa-link"></i> روابط
+                </a>
+            </nav>
+        </header>
+        
+        <div class="main-content">
+            <!-- صفحة لماذا نحن -->
+            <div id="why-us" class="page active">
+                <div class="section fade-in">
+                    <h2><i class="fas fa-bullseye"></i> 🎯 لماذا نحن؟</h2>
+                    <ul>
+                        <li><i class="fas fa-check-circle highlight"></i> محتوى منهجي منظم 📚</li>
+                        <li><i class="fas fa-check-circle highlight"></i> تدريب عملي على مشاريع حقيقية 💻</li>
+                        <li><i class="fas fa-check-circle highlight"></i> هدفنا: تأهيلك لسوق العمل 👨💼👩💼</li>
+                    </ul>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <p class="footer-text">🛣️ طـريـقـك لـكـيـ تـصـبـح مُـبـرْمـجـاً مـحـتـرفـاً بـدأ هـنـا!</p>
+                <p class="hashtag">#مُبَرْمِجُونَ_تَحْتَ_التَّأْسِيس 🌱🚀</p>
+            </div>
+            
+            <!-- صفحة شروط الاشتراك -->
+            <div id="terms" class="page">
+                <div class="section fade-in">
+                    <h2><i class="fas fa-clipboard-list"></i> 📌 شروط الاشتراك والالتزام:</h2>
+                    <ul>
+                        <li><i class="fas fa-ban highlight"></i> يمنع التواصل المباشر (Private) مع الأعضاء داخل المجموعة. 🚫</li>
+                        <li><i class="fas fa-file-alt highlight"></i> الامتحانات والتكاليف إلزامية 📝، والتخلف عنها يعني تنازلك عن مكانك في الدورة. ⚠️</li>
+                        <li><i class="fas fa-users highlight"></i> يُرجى الالتزام الكامل بتعليمات المشرفين 🙏.</li>
+                    </ul>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <p class="footer-text">🛣️ طـريـقـك لـكـيـ تـصـبـح مُـبـرْمـجـاً مـحـتـرفـاً بـدأ هـنـا!</p>
+                <p class="hashtag">#مُبَرْمِجُونَ_تَحْتَ_التَّأْسِيس 🌱🚀</p>
+            </div>
+            
+            <!-- صفحة الرحلة التعليمية -->
+            <div id="journey" class="page">
+                <div class="section fade-in">
+                    <h2><i class="fas fa-graduation-cap"></i> ✨ رحلتنا التعليمية ✨</h2>
+                    
+                    <div class="journey-container">
+                        <div class="journey-item">
+                            <div class="journey-emoji">🌱</div>
+                            <p>مـنـذُ البـدايـة</p>
+                        </div>
+                        
+                        <div class="journey-item">
+                            <div class="journey-emoji">🚀</div>
+                            <p>إلـى الأمـام</p>
+                        </div>
+                        
+                        <div class="journey-item">
+                            <div class="journey-emoji">💻</div>
+                            <p>بـرحلةٍ بـرمـجـيـةٍ مـثـمـرة</p>
+                        </div>
+                        
+                        <div class="journey-item">
+                            <div class="journey-emoji">🖥️</div>
+                            <p>نـبـدأ مـن الـصـفـر</p>
+                        </div>
+                        
+                        <div class="journey-item">
+                            <div class="journey-emoji">💡</div>
+                            <p>نـبـنـي الأفـكـار</p>
+                        </div>
+                        
+                        <div class="journey-item">
+                            <div class="journey-emoji">🎓</div>
+                            <p>نـتـعـلـم مـعـاً</p>
+                        </div>
+                        
+                        <div class="journey-item">
+                            <div class="journey-emoji">🛠️</div>
+                            <p>نـطـوّر الـمـهـارات</p>
+                        </div>
+                        
+                        <div class="journey-item">
+                            <div class="journey-emoji">📚</div>
+                            <p>نـخـوض الـتـحـديـات</p>
+                        </div>
+                        
+                        <div class="journey-item">
+                            <div class="journey-emoji">⚙️</div>
+                            <p>نـنـجـز الـمـشـاريـع</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <p class="footer-text">🛣️ طـريـقـك لـكـيـ تـصـبـح مُـبـرْمـجـاً مـحـتـرفـاً بـدأ هـنـا!</p>
+                <p class="hashtag">#مُبَرْمِجُونَ_تَحْتَ_التَّأْسِيس 🌱🚀</p>
+            </div>
+            
+            <!-- صفحة الروابط المهمة -->
+            <div id="links" class="page">
+                <div class="section fade-in">
+                    <h2><i class="fas fa-link"></i> 🔗 روابط مهمة</h2>
+                    
+                    <div class="links-container">
+                        <div class="link-card">
+                            <h3><i class="fab fa-whatsapp"></i> مجموعة الواتساب</h3>
+                            <p>انضم إلى مجموعتنا على الواتساب للبدء في رحلة البرمجة</p>
+                            <a href="https://chat.whatsapp.com/BBUEPV1o1D8CBJRcZ5dIBW" class="link-button" target="_blank">انضم الآن</a>
+                        </div>
+                        
+                        <div class="link-card">
+                            <h3><i class="fab fa-youtube"></i> قناة اليوتيوب</h3>
+                            <p>اشترك في قناتنا على اليوتيوب لمشاهدة الدروس والشروحات</p>
+                            <a href="https://youtube.com/@omarhmady-1?si=Ul6F5bYaHqxl6IzC" class="link-button" target="_blank">زيارة القناة</a>
+                        </div>
+                        
+                        <div class="link-card">
+                            <h3><i class="fab fa-github"></i> Github</h3>
+                            <p>تابع مشاريعنا وأكوادنا على منصة Github</p>
+                            <a href="https://github.com/Oamrhamdi" class="link-button" target="_blank">زيارة Github</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <p class="footer-text">🛣️ طـريـقـك لـكـيـ تـصـبـح مُـبـرْمـجـاً مـحـتـرفـاً بـدأ هـنـا!</p>
+                <p class="hashtag">#مُبَرْمِجُونَ_تَحْتَ_التَّأْسِيس 🌱🚀</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>🎯✨مـبـرْمـجـون تـحـت الـتـأسـيـس ✨🎯</p>
+            <p class="hashtag">#مُبَرْمِجُونَ_تَحْتَ_التَّأْسِيس 🌱🚀</p>
+        </footer>
+    </div>
+
+    <script>
+        // التنقل بين الصفحات
+        document.querySelectorAll('.nav-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // إزالة النشاط من جميع الأزرار
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // إضافة النشاط للزر المحدد
+                this.classList.add('active');
+                
+                // إخفاء جميع الصفحات
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // إظهار الصفحة المحددة
+                const pageId = this.getAttribute('data-page');
+                document.getElementById(pageId).classList.add('active');
+                
+                // الانتقال إلى أعلى الصفحة
+                window.scrollTo(0, 0);
+                
+                // إعادة تطبيق تأثير الظهور للعناصر
+                setTimeout(initFadeIns, 100);
+            });
+        });
+        
+        // تأثيرات الظهور عند التمرير
+        function initFadeIns() {
+            document.querySelectorAll('.fade-in').forEach(el => {
+                el.classList.remove('visible');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                entry.target.classList.add('visible');
+                            }, 100);
+                        }
+                    });
+                });
+                
+                observer.observe(el);
+            });
+        }
+        
+        // تهيئة التأثيرات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            initFadeIns();
+            
+            // منع تأثيرات hover على الأجهزة التي لا تدعمها
+            function hasTouch() {
+                return 'ontouchstart' in document.documentElement
+                    || navigator.maxTouchPoints > 0
+                    || navigator.msMaxTouchPoints > 0;
+            }
+
+            if (hasTouch()) {
+                document.body.classList.add('touch-device');
+            }
+        });
+    </script>
+</body>
+</html>
